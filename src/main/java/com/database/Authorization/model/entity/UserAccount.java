@@ -1,4 +1,4 @@
-package com.database.Authorization.model;
+package com.database.Authorization.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.List;
 @Document
 public class UserAccount {
     @Id
-    private String id;
+    private String userAccountId;
 
     private String username;
     private String password;
@@ -27,6 +27,7 @@ public class UserAccount {
     private boolean credentialsExpire;
 
     private UserAccount(Builder builder) {
+        userAccountId=builder.userAccountId;
         username = builder.username;
         password = builder.password;
         permissions = builder.permissions;
@@ -56,19 +57,28 @@ public class UserAccount {
     public static class Builder {
         private final String username;
         private final String password;
-        private final String permissions;
-        private final String roles;
 
+        private String permissions = "";
+        private String roles = "";
+        private String userAccountId = null;
         private boolean accountExpire = true;
         private boolean locked = true;
         private boolean credentialsExpire = true;
         private boolean active = false;
 
-        public Builder(String username, String password, String permissions, String roles) {
+        public Builder(String username, String password) {
             this.username = username;
             this.password = password;
+        }
+
+        public Builder permissions(String permissions){
             this.permissions = permissions;
+            return this;
+        }
+
+        public Builder roles(String roles){
             this.roles = roles;
+            return this;
         }
 
         public Builder active(boolean active) {
@@ -88,6 +98,11 @@ public class UserAccount {
 
         public Builder credentialsExpire(boolean credentialsExpire) {
             this.credentialsExpire = credentialsExpire;
+            return this;
+        }
+
+        public Builder userAccountId(String userAccountId){
+            this.userAccountId = userAccountId;
             return this;
         }
 

@@ -1,8 +1,8 @@
 package com.database.Authorization.security;
 
 import com.auth0.jwt.JWT;
-import com.database.Authorization.model.Login;
 import com.database.Authorization.model.UserPrincipal;
+import com.database.Authorization.model.dto.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -68,11 +69,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(HMAC512(JwtProperties.SECRET.getBytes()));
 
         // Add token in response
-        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX  + token);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
     }
 
     private Instant getExpiresPeriod() {
-        return Instant.from(LocalDate.now()
-                .plusDays(JwtProperties.EXPIRATION_TIME_DAYS));
+        return LocalDate.now()
+                .plusDays(JwtProperties.EXPIRATION_TIME_DAYS)
+                .atStartOfDay().toInstant(ZoneOffset.UTC);
     }
 }

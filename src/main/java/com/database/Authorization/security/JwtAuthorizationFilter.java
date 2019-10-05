@@ -1,7 +1,7 @@
 package com.database.Authorization.security;
 
 import com.auth0.jwt.JWT;
-import com.database.Authorization.model.UserAccount;
+import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.model.UserPrincipal;
 import com.database.Authorization.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.database.Authorization.model;
 
+import com.database.Authorization.model.entity.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.database.Authorization.model;
+package com.database.Authorization.model.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
