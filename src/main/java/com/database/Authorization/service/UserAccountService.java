@@ -1,6 +1,7 @@
 package com.database.Authorization.service;
 
 import com.database.Authorization.model.dto.UserAccountDto;
+import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.repository.UserAccountRepository;
 import com.database.Authorization.service.templateMethodSave.Operation;
 import com.database.Authorization.service.templateMethodSave.SaveOperation;
@@ -29,5 +30,9 @@ public class UserAccountService {
         log.info("Create new user: " + userToCreate.toString());
         Operation createUser = new SaveOperation(new Create(mapper, userAccountRepository, passwordEncoder));
         createUser.save(userToCreate);
+    }
+
+    public UserAccount getUserAccountByUsername(String username){
+        return userAccountRepository.findByUsername(username);
     }
 }

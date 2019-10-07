@@ -41,6 +41,10 @@ public class UserPrincipal implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
     @Override
     public String getPassword() {
         return this.userAccount.getPassword();

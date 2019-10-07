@@ -2,8 +2,9 @@ package com.database.Authorization.security;
 
 import com.auth0.jwt.JWT;
 import com.database.Authorization.model.UserPrincipal;
-import com.database.Authorization.model.dto.Login;
+import com.database.Authorization.model.dto.UserAccountDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,7 +28,7 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
 
-
+    @Autowired
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
@@ -39,10 +40,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         // Grab credentials and map them to login viewmodel
-        Login credentials = null;
+        UserAccountDto credentials = null;
         try {
             credentials = new ObjectMapper()
-                    .readValue(request.getInputStream(), Login.class);
+                    .readValue(request.getInputStream(), UserAccountDto.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

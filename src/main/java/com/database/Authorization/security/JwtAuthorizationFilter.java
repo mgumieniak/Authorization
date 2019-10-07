@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -59,9 +60,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         // Search in the DB if we find the user by token subject (username)
         // If so, then grab user details and create spring auth token using username, pass, authorities/roles
         if (userName != null) {
-            UserAccount user = userAccountRepository.findByUsername(userName);
-            UserPrincipal principal = new UserPrincipal(user);
-            return new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
+//            UserAccount user = userAccountRepository.findByUsername(userName);
+//            UserPrincipal principal = new UserPrincipal(user);
+            return new UsernamePasswordAuthenticationToken(userName, null, new ArrayList<>());
         }else{
             return null;
         }
