@@ -46,7 +46,7 @@ dependencies {
 	compile group: 'com.database.common', name:'library-common', version:'1.0'
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config', version: '2.1.4.RELEASE'
 }
 
 dependencyManagement {

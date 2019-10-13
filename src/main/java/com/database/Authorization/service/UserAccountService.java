@@ -32,7 +32,7 @@ public class UserAccountService {
         createUser.save(userToCreate);
     }
 
-    public UserAccount getUserAccountByUsername(String username){
+    public UserAccount getUserAccountByUsername(String username) {
         return userAccountRepository.findByUsername(username);
     }
 }

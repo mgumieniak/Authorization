@@ -41,10 +41,10 @@ public class Mapper {
         mapper.createTypeMap(UserPrincipal.class, UserPrincipalDto.class).setProvider(
                 request -> {
                     UserPrincipal u = (UserPrincipal) request.getSource();
-                    return new UserPrincipalDto(u.getAuthorities(),u.getPassword(),
-                            u.getUsername(),u.isEnabled(),
-                            u.isAccountNonExpired(),u.isAccountNonLocked(),
-                            u.isCredentialsNonExpired());
+                    return new UserPrincipalDto(u.getUsername(), u.getPassword(),
+                            u.getAuthorities(), u.isEnabled(),
+                            !u.isAccountNonExpired(), !u.isAccountNonLocked(),
+                            !u.isCredentialsNonExpired());
                 }
         );
     }
