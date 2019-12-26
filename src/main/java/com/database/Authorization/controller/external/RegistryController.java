@@ -1,7 +1,7 @@
-package com.database.Authorization.controller;
+package com.database.Authorization.controller.external;
 
-import com.database.Authorization.model.dto.UserAccountDto;
 import com.database.Authorization.service.UserAccountService;
+import com.database.models.UserAccountDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,4 +24,5 @@ public class RegistryController {
     public void registry(@RequestBody UserAccountDto userAccountDto) {
         userAccountService.createAccount(userAccountDto);
     }
+
 }

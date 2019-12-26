@@ -1,6 +1,9 @@
 package com.database.Authorization.model;
 
 import com.database.Authorization.model.entity.UserAccount;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class UserPrincipal implements UserDetails {
 
     private UserAccount userAccount;
@@ -27,22 +32,18 @@ public class UserPrincipal implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    private List<SimpleGrantedAuthority> getPermissionsListWithGrandedAuth(){
+    private List<SimpleGrantedAuthority> getPermissionsListWithGrandedAuth() {
         return userAccount.getPermissionsList()
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
-    private List<SimpleGrantedAuthority> getRolesListWithGrandedAuth(){
+    private List<SimpleGrantedAuthority> getRolesListWithGrandedAuth() {
         return userAccount.getRolesList()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
-    }
-
-    public UserAccount getUserAccount() {
-        return userAccount;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return !this.userAccount.isAccountExpire();
+        return !this.userAccount.isAccountExpired();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return !this.userAccount.isAccountExpire();
+        return !this.userAccount.isAccountExpired();
     }
 
     @Override

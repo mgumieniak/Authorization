@@ -1,13 +1,13 @@
 package com.database.Authorization.service;
 
-import com.database.Authorization.model.dto.UserAccountDto;
+import com.database.Authorization.mapper.UserMapper;
 import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.repository.UserAccountRepository;
 import com.database.Authorization.service.templateMethodSave.Operation;
 import com.database.Authorization.service.templateMethodSave.SaveOperation;
 import com.database.Authorization.service.templateMethodSave.operations.Create;
+import com.database.models.UserAccountDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserAccountService {
-    private ModelMapper mapper;
+    private UserMapper mapper;
     private UserAccountRepository userAccountRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAccountService(ModelMapper mapper, UserAccountRepository userAccountRepository, PasswordEncoder passwordEncoder) {
+    public UserAccountService(UserMapper mapper, UserAccountRepository userAccountRepository, PasswordEncoder passwordEncoder) {
         this.mapper = mapper;
         this.userAccountRepository = userAccountRepository;
         this.passwordEncoder = passwordEncoder;
@@ -32,7 +32,7 @@ public class UserAccountService {
         createUser.save(userToCreate);
     }
 
-    public UserAccount getUserAccountByUsername(String username) {
+    public UserAccount getUserAccount(String username) {
         return userAccountRepository.findByUsername(username);
     }
 }

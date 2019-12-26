@@ -1,23 +1,23 @@
 package com.database.Authorization.service.templateMethodSave.operations;
 
+import com.database.Authorization.mapper.UserMapper;
 import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.repository.UserAccountRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class Create extends AbstractSave {
 
-    public Create(ModelMapper mapper, UserAccountRepository repo, PasswordEncoder passwordEncoder) {
+    public Create(UserMapper mapper, UserAccountRepository repo, PasswordEncoder passwordEncoder) {
         super(mapper, repo, passwordEncoder);
     }
 
-    // TODO: temporary flags
     @Override
     public UserAccount operateAddField(UserAccount user) {
-        return new UserAccount.Builder(user.getUsername(), getPasswordEncoder().encode(user.getPassword()))
-                .accountExpire(false)
+        return UserAccount.builder().username(user.getUsername())
+                .password(getPasswordEncoder().encode(user.getPassword()))
+                .accountExpired(false)
                 .active(true)
-                .credentialsExpire(false)
+                .credentialsExpired(false)
                 .locked(false)
                 .build();
     }

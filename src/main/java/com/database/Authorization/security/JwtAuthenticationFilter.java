@@ -2,7 +2,8 @@ package com.database.Authorization.security;
 
 import com.auth0.jwt.JWT;
 import com.database.Authorization.model.UserPrincipal;
-import com.database.Authorization.model.dto.UserAccountDto;
+import com.database.models.UserAccountDto;
+import com.database.models.security.JwtProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -70,7 +71,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(HMAC512(JwtProperties.SECRET.getBytes()));
 
         // Add token in response
-        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
+        response.addHeader(JwtProperties.SECURITY_HEADER, JwtProperties.TOKEN_PREFIX + token);
     }
 
     private Instant getExpiresPeriod() {

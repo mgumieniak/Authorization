@@ -1,7 +1,7 @@
 package com.database.Authorization.service;
 
-import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.model.UserPrincipal;
+import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAccount userAccount =  repo.findByUsername(username);
+        UserAccount userAccount = repo.findByUsername(username);
         return new UserPrincipal(userAccount);
     }
 }

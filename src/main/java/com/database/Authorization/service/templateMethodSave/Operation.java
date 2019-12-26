@@ -1,7 +1,7 @@
 package com.database.Authorization.service.templateMethodSave;
 
-import com.database.Authorization.model.dto.UserAccountDto;
 import com.database.Authorization.model.entity.UserAccount;
+import com.database.models.UserAccountDto;
 
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
