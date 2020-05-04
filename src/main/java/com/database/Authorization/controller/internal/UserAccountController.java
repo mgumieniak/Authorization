@@ -1,7 +1,7 @@
 package com.database.Authorization.controller.internal;
 
 import com.database.Authorization.mapper.UserMapper;
-import com.database.Authorization.model.UserPrincipal;
+import com.database.Authorization.model.decorator.UserPrincipal;
 import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.service.UserAccountService;
 import com.database.models.UserPrincipalDto;
@@ -26,9 +26,11 @@ public class UserAccountController {
 
     @GetMapping("/{username}")
     public UserPrincipalDto getUser(@PathVariable String username) {
+        log.info("LOg!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         UserAccount userAccount = userAccountService.getUserAccount(username);
-        UserPrincipal userPrincipal = new UserPrincipal(userAccount);
+        UserPrincipal userPrincipal = UserPrincipal.builder()
+                .userAccount(userAccount)
+                .build();
         return mapper.toUserPrincipalDto(userPrincipal);
     }
-
 }

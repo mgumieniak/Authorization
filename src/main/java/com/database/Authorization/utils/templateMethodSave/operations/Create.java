@@ -1,33 +1,26 @@
-package com.database.Authorization.service.templateMethodSave.operations;
+package com.database.Authorization.utils.templateMethodSave.operations;
 
 import com.database.Authorization.mapper.UserMapper;
 import com.database.Authorization.model.entity.UserAccount;
 import com.database.Authorization.repository.UserAccountRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class Update extends AbstractSave {
+public class Create extends AbstractSave {
 
-    private String userAccountId;
-
-    public Update(UserMapper mapper, UserAccountRepository repo,
-                  PasswordEncoder passwordEncoder, String userAccountId) {
+    public Create(UserMapper mapper, UserAccountRepository repo, PasswordEncoder passwordEncoder) {
         super(mapper, repo, passwordEncoder);
-        this.userAccountId = userAccountId;
-    }
-
-    private String getUserAccountId() {
-        return userAccountId;
     }
 
     @Override
-    public UserAccount operateAddField(UserAccount user) {
+    public UserAccount operateModify(UserAccount user) {
         return UserAccount.builder().username(user.getUsername())
                 .password(getPasswordEncoder().encode(user.getPassword()))
+                .roles(user.getRoles())
+                .permissions(user.getPermissions())
                 .accountExpired(false)
                 .active(true)
                 .credentialsExpired(false)
                 .locked(false)
                 .build();
     }
-
 }

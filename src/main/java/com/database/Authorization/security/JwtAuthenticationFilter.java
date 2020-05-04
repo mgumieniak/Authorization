@@ -1,7 +1,7 @@
 package com.database.Authorization.security;
 
 import com.auth0.jwt.JWT;
-import com.database.Authorization.model.UserPrincipal;
+import com.database.Authorization.model.decorator.UserPrincipal;
 import com.database.models.UserAccountDto;
 import com.database.models.security.JwtProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;

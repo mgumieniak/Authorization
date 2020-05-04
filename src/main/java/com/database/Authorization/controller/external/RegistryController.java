@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/registry")
 @CrossOrigin("*")
@@ -21,8 +23,7 @@ public class RegistryController {
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registry(@RequestBody UserAccountDto userAccountDto) {
+    public void registry(@Valid @RequestBody UserAccountDto userAccountDto) {
         userAccountService.createAccount(userAccountDto);
     }
-
 }

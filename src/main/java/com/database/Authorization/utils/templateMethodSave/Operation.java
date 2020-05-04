@@ -1,4 +1,4 @@
-package com.database.Authorization.service.templateMethodSave;
+package com.database.Authorization.utils.templateMethodSave;
 
 import com.database.Authorization.model.entity.UserAccount;
 import com.database.models.UserAccountDto;
@@ -20,8 +20,8 @@ public class Operation {
     }
 
     public void save(UserAccountDto userToUpdate) {
-        UserAccount user = mapToUser.apply(userToUpdate);
-        user = addField.apply(user);
-        save.apply(user);
+        UserAccount inactiveUserAccount = mapToUser.apply(userToUpdate);
+        UserAccount activeUserAccount = addField.apply(inactiveUserAccount);
+        save.apply(activeUserAccount);
     }
 }

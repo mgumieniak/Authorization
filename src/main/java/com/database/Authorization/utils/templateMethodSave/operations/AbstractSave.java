@@ -1,4 +1,4 @@
-package com.database.Authorization.service.templateMethodSave.operations;
+package com.database.Authorization.utils.templateMethodSave.operations;
 
 import com.database.Authorization.mapper.UserMapper;
 import com.database.Authorization.model.entity.UserAccount;
@@ -27,7 +27,7 @@ public abstract class AbstractSave implements Save {
     }
 
     @Override
-    abstract public UserAccount operateAddField(UserAccount user);
+    abstract public UserAccount operateModify(UserAccount user);
 
     @Override
     public UserAccount operateSave(UserAccount user) {

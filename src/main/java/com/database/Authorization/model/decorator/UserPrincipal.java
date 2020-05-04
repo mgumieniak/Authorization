@@ -1,10 +1,7 @@
-package com.database.Authorization.model;
+package com.database.Authorization.model.decorator;
 
 import com.database.Authorization.model.entity.UserAccount;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,32 +11,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Getter
+@Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class UserPrincipal implements UserDetails {
 
-    private UserAccount userAccount;
-
-    @Autowired
-    public UserPrincipal(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
+    @Builder.Default
+    private final UserAccount userAccount = UserAccount.builder().build();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Stream.concat(getPermissionsListWithGrandedAuth().stream(),
-                getRolesListWithGrandedAuth().stream())
+        return Stream.concat(getPermissionsListWithGrantedAuth().stream(),
+                getRolesListWithGrantedAuth().stream())
                 .collect(Collectors.toList());
     }
 
-    private List<SimpleGrantedAuthority> getPermissionsListWithGrandedAuth() {
+    private List<SimpleGrantedAuthority> getPermissionsListWithGrantedAuth() {
         return userAccount.getPermissionsList()
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
-    private List<SimpleGrantedAuthority> getRolesListWithGrandedAuth() {
+    private List<SimpleGrantedAuthority> getRolesListWithGrantedAuth() {
         return userAccount.getRolesList()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
